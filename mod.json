@@ -1,0 +1,18 @@
+{
+	"namespace": "LobbyMusic",
+	"displayName": "Lobby Music",
+	"version": "1.0.0",
+	"synchronyVersion": "3.7.1",
+	"description": "No description given.",
+	"author": "Nixill",
+	"dependencies": {
+		"PowerSettings_io_2237104": true
+	},
+	"api": {
+		"scriptPath": "scripts"
+	},
+	"icon": "LobbyMusicIcon.png",
+	"banner": "LobbyMusicBanner.png",
+	"tags": [],
+	"name": "LobbyMusic"
+}
