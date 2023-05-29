@@ -1,11 +1,12 @@
-local GameDLC    = require "necro.game.data.resource.GameDLC"
-local Music      = require "necro.audio.Music"
-local Soundtrack = require "necro.game.data.Soundtrack"
+local GameDLC         = require "necro.game.data.resource.GameDLC"
+local Music           = require "necro.audio.Music"
+local SettingsStorage = require "necro.config.SettingsStorage"
+local Soundtrack      = require "necro.game.data.Soundtrack"
 
 local PowerSettings = require "PowerSettings.PowerSettings"
 
 local LMEnum = require "LobbyMusic.Enum"
-local LMTracklist = require "LobbyMusic.TrackList"
+local LMTracklist = require "LobbyMusic.Tracklist"
 
 PowerSettings.autoRegister()
 PowerSettings.saveVersionNumber() -- I don't think I'll be making any custom rules but just in case
@@ -53,14 +54,14 @@ PowerSettings.user.enum {
 PowerSettings.user.bool {
   name = "Danny Baranowsky",
   id = "soundtracks.danny_b",
-  order = 1,
+  order = 2,
   default = true
 }
 
 PowerSettings.user.bool {
   name = "A_Rival",
   id = "soundtracks.a_rival",
-  order = 2,
+  order = 3,
   default = true
 }
 
@@ -69,28 +70,28 @@ PowerSettings.user.bool {
   id = "soundtracks.familyjules7x",
   -- I wonder how necessary this disclaimer actually is.
   desc = "This isn't miswritten; he doesn't use the 7x in his branding any more.",
-  order = 3,
+  order = 4,
   default = true
 }
 
 PowerSettings.user.bool {
   name = "Virt",
   id = "soundtracks.virt",
-  order = 4,
+  order = 5,
   default = true
 }
 
 PowerSettings.user.bool {
   name = "Girlfriend Records",
   id = "soundtracks.girlfriend_records",
-  order = 5,
+  order = 6,
   default = true
 }
 
 PowerSettings.user.bool {
   name = "OC Remix",
   id = "soundtracks.oc_remix",
-  order = 6,
+  order = 7,
   default = true,
   visibleIf = GameDLC.isAmplifiedAvailable,
   ignoredIf = function() return not GameDLC.isAmplifiedAvailable() end,
@@ -100,14 +101,14 @@ PowerSettings.user.bool {
 PowerSettings.user.bool {
   name = "Chipzel",
   id = "soundtracks.chipzel",
-  order = 7,
+  order = 8,
   default = true
 }
 
 PowerSettings.user.bool {
   name = "Danganronpa",
   id = "soundtracks.danganronpa",
-  order = 8,
+  order = 9,
   default = false
 }
 
@@ -165,6 +166,22 @@ PowerSettings.user.enum {
   default = LMEnum.HotCold.RANDOM
 }
 
+PowerSettings.user.bool {
+  name = "Always open with lobby music",
+  desc = "Should a lobby theme always be the first played when loading the lobby?",
+  id = "alwaysLobbyFirst",
+  order = 5,
+  default = true
+}
+
+PowerSettings.user.bool {
+  name = "Show now playing",
+  desc = "Should the now playing track be shown in the bottom right?",
+  id = "showNowPlaying",
+  order = 6,
+  default = true
+}
+
 --#endregion Settings
 
 ---------------------
@@ -178,11 +195,11 @@ PowerSettings.user.table {
   default = {}
 }
 
-PowerSettings.user.number {
+PowerSettings.user.table {
   name = "Last played track",
   id = "nowPlaying.track",
   visibility = PowerSettings.Visibility.HIDDEN,
-  default = 0
+  default = {}
 }
 
 PowerSettings.user.enum {
@@ -197,5 +214,8 @@ return {
   get = function(setting, ...)
     local val = PowerSettings.get("mod.LobbyMusic." .. setting, ...)
     return val
+  end,
+  set = function(setting, ...)
+    SettingsStorage.set("mod.LobbyMusic." .. setting, ...)
   end
 }

@@ -47,35 +47,21 @@ local tracklist = {
     { index = 28, params = { type = "boss", boss = Boss.Type.CONDUCTOR }, condition = GameDLC.isAmplifiedAvailable,
       fade = true },
   },
-  Orders = {
-    [LMEnum.TrackOrder.ORDERED] = { 1, 2, 3, 4, 5, 6, 19, 7, 8, 9, 20, 10, 11, 12, 21, 13, 14, 15, 22, 16, 17, 18, 23, 24,
-      25, 26, 27, 28 },
-    [LMEnum.TrackOrder.ALTERNATE] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
-      24, 25, 26, 27, 28 },
-    [LMEnum.TrackOrder.ARIA] = { 1, 2, 3, 16, 17, 18, 23, 13, 14, 15, 22, 10, 11, 12, 21, 7, 8, 9, 20, 4, 5, 6, 19, 24,
-      25, 26, 27, 28 },
-    [LMEnum.TrackOrder.SHUFFLE] = function()
-      local tracks = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
-        28 }
-      RNG.shuffle(tracks, RNG.Channel.SOUNDTRACK)
-      return tracks
-    end
-  },
   SkipShop = {
     [Soundtrack.Artist.DANGANRONPA] = true
   }
 }
 
 module.getTracklist = function() return Utilities.deepCopy(tracklist.Tracks) end
-module.getOrders = function() return Utilities.deepCopy(tracklist.Orders) end
 
 module.regenQueue = function()
-  local queue = tracklist.Orders[LMSettings.get("trackOrder")]
+  local queue = LMEnum.TrackOrder.data[LMSettings.get("trackOrder")].order
   if type(queue) == "table" then
     queue = Utilities.fastCopy(queue)
   else
     queue = queue()
   end
+  SettingsStorage.set("mod.LobbyMusic.nowPlaying.queue", queue)
   return queue
 end
 
@@ -102,6 +88,8 @@ module.getNextTrack = function()
     if check.condition == nil or check.condition() then
       nextTrack = check
     end
+
+    nextTrack.condition = nil
   end
 
   -- Which artist are we going to use?
