@@ -15,9 +15,19 @@ local module = {}
 
 local tracklist = {
   Tracks = {
+    -- New tracks should be added to the end. Alter the TrackOrder enum to insert songs in the middle.
+    -- Parameters in these objects:
+    --   index: The index within the Tracks list. Mostly for convenience in reading.
+    --   params: The params table passed to Music.setMusic(). See class Soundtrack.Song.
+    --   fade: Whether or not the music should fade on the end.
+    --   danny: Without a resource pack, all variants of this track are identical to DannyB's.
+    --     "hardcoded" means that no files exist within the game's data except DannyB's.
+    --   condition: The condition under which the track should play. This is removed before the track info is returned.
+    --   func: The function within LobbyMusic.MusicFunc that should be performed when this track starts (to set layer volumes).
+    --     Passed as a name to allow it to be present in the track info.
     { index = 1, params = { type = "lobby" }, fade = true },
-    { index = 2, params = { type = "training" }, fade = true },
-    { index = 3, params = { type = "tutorial" }, fade = true },
+    { index = 2, params = { type = "training" }, fade = true, danny = true },
+    { index = 3, params = { type = "tutorial" }, fade = true, danny = true },
     { index = 4, params = { type = "zone", zone = 1, floor = 1 } },
     { index = 5, params = { type = "zone", zone = 1, floor = 2 } },
     { index = 6, params = { type = "zone", zone = 1, floor = 3 } },
@@ -39,13 +49,13 @@ local tracklist = {
     { index = 22, params = { type = "boss", boss = Boss.Type.CORAL_RIFF }, func = "crInstruments", fade = true },
     { index = 23, params = { type = "boss", boss = Boss.Type.FORTISSIMOLE }, condition = GameDLC.isAmplifiedAvailable,
       fade = true },
-    { index = 24, params = { type = "boss", boss = Boss.Type.DEAD_RINGER }, fade = true },
-    { index = 25, params = { type = "boss", boss = Boss.Type.NECRODANCER }, fade = true },
-    { index = 26, params = { type = "boss", boss = Boss.Type.GOLDEN_LUTE }, fade = true },
+    { index = 24, params = { type = "boss", boss = Boss.Type.DEAD_RINGER }, fade = true, danny = true },
+    { index = 25, params = { type = "boss", boss = Boss.Type.NECRODANCER }, fade = true, danny = true },
+    { index = 26, params = { type = "boss", boss = Boss.Type.GOLDEN_LUTE }, fade = true, danny = true },
     { index = 27, params = { type = "boss", boss = Boss.Type.FRANKENSTEINWAY }, condition = GameDLC.isAmplifiedAvailable,
-      fade = true },
+      fade = true, danny = "hardcoded" },
     { index = 28, params = { type = "boss", boss = Boss.Type.CONDUCTOR }, condition = GameDLC.isAmplifiedAvailable,
-      fade = true },
+      fade = true, danny = "hardcoded" },
   },
   SkipShop = {
     [Soundtrack.Artist.DANGANRONPA] = true
