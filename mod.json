@@ -3,16 +3,18 @@
 	"displayName": "Lobby Music",
 	"version": "1.0.0",
 	"synchronyVersion": "3.7.1",
-	"description": "No description given.",
+	"description": "Play the game's soundtrack in the lobby!",
 	"author": "Nixill",
-	"dependencies": {
-		"PowerSettings_io_2237104": true
-	},
-	"api": {
-		"scriptPath": "scripts"
-	},
+	"dependencies": {"PowerSettings_io_2237104":true},
+	"api": {"scriptPath":"scripts"},
 	"icon": "LobbyMusicIcon.png",
 	"banner": "LobbyMusicBanner.png",
 	"tags": [],
-	"name": "LobbyMusic"
+	"name": "LobbyMusic_io_3048828",
+	"changelog": "",
+	"homepageURL": "https://mod.io/g/crypt/m/lobbymusic",
+	"modioID": "3048828",
+	"modioUserID": 12939888,
+	"pendingVersion": "1.0.0",
+	"visibility": 2
 }
