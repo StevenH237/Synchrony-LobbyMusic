@@ -1,7 +1,7 @@
 {
 	"namespace": "LobbyMusic",
 	"displayName": "Lobby Music",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"synchronyVersion": "3.7.1",
 	"description": "Play the game's soundtrack in the lobby!",
 	"author": "Nixill",
@@ -15,6 +15,6 @@
 	"homepageURL": "https://mod.io/g/crypt/m/lobbymusic",
 	"modioID": "3048828",
 	"modioUserID": 12939888,
-	"pendingVersion": "1.0.0",
+	"pendingVersion": "1.0.1",
 	"visibility": 2
 }

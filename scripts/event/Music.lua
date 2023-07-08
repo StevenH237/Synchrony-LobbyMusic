@@ -18,6 +18,7 @@ end)
 
 Event.musicPlay.add("lobbyMusicAutoplay", { order = "playAudio", sequence = 1 }, function(ev)
   if CurrentLevel.isLobby() then
+    -- print("musicPlay")
     LMMusicFunc.setLayerVolumes()
     local len = Music.getMusicLength()
     LMTick.DoFadeOut({}, len - 0.01667)

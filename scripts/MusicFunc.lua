@@ -15,14 +15,14 @@ local LMSettings = require "LobbyMusic.Settings"
 local module = {}
 
 function module.z3Temp()
-  local whichTemp = LMSettings.get("zone3")
-
-  -- Make sure we haven't *already run this*
+  -- Make sure we haven't *already run this* and picked a random option
+  -- If we have, we'll use the random option instead
   local track = LMSettings.get("nowPlaying.track")
-  if track.z3set then return end
+  local whichTemp = track.z3set or LMSettings.get("zone3")
 
   -- If it's balanced, we don't need to do anything.
-  if whichTemp == LMEnum.HotCold.BALANCED then
+  if whichTemp == "duet" or whichTemp == LMEnum.HotCold.BALANCED then
+    print("Dual mix requested, no change")
     track.z3set = "duet"
     LMSettings.set("nowPlaying.track", track)
     return
@@ -33,11 +33,11 @@ function module.z3Temp()
     whichTemp = RNG.choice({ LMEnum.HotCold.HOT, LMEnum.HotCold.COLD }, RNG.Channel.SOUNDTRACK)
   end
 
-  if whichTemp == LMEnum.HotCold.HOT then
+  if whichTemp == "hot" or whichTemp == LMEnum.HotCold.HOT then
     track.z3set = "hot"
     MusicLayers.setVolume(Soundtrack.LayerType.COLD, 0)
     MusicLayers.setVolume(Soundtrack.LayerType.HOT, 1)
-  elseif whichTemp == LMEnum.HotCold.COLD then
+  elseif whichTemp == "cold" or whichTemp == LMEnum.HotCold.COLD then
     track.z3set = "cold"
     MusicLayers.setVolume(Soundtrack.LayerType.HOT, 0)
     MusicLayers.setVolume(Soundtrack.LayerType.COLD, 1)
@@ -77,7 +77,7 @@ function module.setLayerVolumes()
   end
 
   -- Single volume shopkeeper isn't quite audible.
-  MusicLayers.multiplyVolume(Soundtrack.LayerType.SHOPKEEPER, 2)
+  MusicLayers.multiplyVolume(Soundtrack.LayerType.SHOPKEEPER, 1.5)
 end
 
 return module

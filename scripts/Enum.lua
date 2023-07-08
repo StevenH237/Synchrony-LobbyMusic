@@ -49,8 +49,8 @@ module.TrackOrder = Enum.sequence {
   }),
   DEBUG_TEMPO = Enum.entry(5, {
     name = "Debug",
-    desc = "Alternates between 1-1 and 4-3 for debug purposes.",
-    order = { 4, 15 }
+    desc = "Zone 3 musics for debug purposes.",
+    order = { 10, 11, 12 }
   })
 }
 
